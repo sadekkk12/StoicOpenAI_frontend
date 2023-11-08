@@ -10,7 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            document.getElementById('response').innerText = JSON.stringify(data); // Assuming the response is the full MyResponse object
+            const quotesRaw = data.answer;
+            const quotesArray = quotesRaw.split('\n\n');
+            const formattedQuotes = quotesArray.map((quote, index) => `${index + 1}. ${quote.trim()}`).join('<br><br>');
+            document.getElementById('response').innerHTML = formattedQuotes;
         })
         .catch(error => {
             console.error('Error:', error);
