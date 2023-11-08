@@ -3,9 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>index</title>
+    <title>StoicOpenAI</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <p>DEPLOYED!</p>
+    <h1>Welcome to StoicOpenAI</h1>
+    <form id="questionForm">
+        <label for="question">Your Question:</label><br>
+        <textarea id="question" name="question" rows="4" cols="50"></textarea><br>
+        <input type="submit" value="Submit" id="submitBtn">
+    </form>
+    <div id="response"></div>
+    <script src="script.js"></script>
 </body>
 </html>
