@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             // if not selecting a quote, get the quotes
             var aboutText = document.getElementById('question').value;
-            fetch(`http://localhost:8080/?about=${encodeURIComponent(aboutText)}`, {
+            fetch(`http://localhost:8080/quotes?userInput=${encodeURIComponent(aboutText)}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function fetchExplanation(quote) {
     // Implement the fetch call to your backend with the selected quote
     //insert correct endpoint
-    fetch(`http://localhost:8080/?about=${encodeURIComponent(quote)}`, {
+    fetch(`http://localhost:8080/explanation?quote=${encodeURIComponent(quote)}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
