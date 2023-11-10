@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Make sure the user entered a valid number
             if (selectionNumber >= 1 && selectionNumber <= 5) {
                 fetchExplanation(quotesArray[selectionNumber - 1]);
+                generateAndDisplayImage(quotesArray[selectionNumber - 1]);
             } else {
                 document.getElementById('response').innerText = 'Please enter a valid number (1-5).';
             }
@@ -72,4 +73,32 @@ function fetchExplanation(quote) {
         console.error('Error:', error);
         document.getElementById('response').innerText = 'An error occurred while fetching the explanation.';
     });
+}
+function generateAndDisplayImage(quote) {
+    fetch(`http://localhost:8080/generate-image`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ quote: quote })
+    })
+    .then(handleResponse)
+    .then(data => {
+        const imageElement = document.createElement('img');
+        imageElement.src = data.answer;
+        document.getElementById('imageResponse').appendChild(imageElement);
+    })
+    .catch(handleError);
+}
+
+function handleResponse(response) {
+    if (!response.ok) {
+        throw new Error('Network response was not ok: ' + response.statusText);
+    }
+    return response.json();
+}
+
+function handleError(error) {
+    console.error('Error:', error);
+    document.getElementById('response').innerText = 'An error occurred while processing your request.';
 }
