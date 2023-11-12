@@ -51,6 +51,7 @@ p, ol {
     padding: 5px;
     background: #1e1e1e; 
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    margin-bottom: 50px;
 }
 
 #questionForm {
@@ -63,6 +64,7 @@ p, ol {
     padding: 10px;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
 }
+
 
 #questionForm .form-control {
     border-radius: 20px;
