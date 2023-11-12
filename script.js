@@ -1,47 +1,58 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var isSelectingQuote = false; // state flag to track what the input field is being used for
-    var quotesArray = []; // to store quotes between interactions
+    var isSelectingQuote = false;
+    var quotesArray = [];
+    document.getElementById('question').value = '';
 
     document.getElementById('submitBtn').addEventListener('click', function(event) {
         event.preventDefault();
 
-        // if selecting a quote, send the selected number to get an explanation
         if (isSelectingQuote) {
             var selection = document.getElementById('question').value.trim();
             var selectionNumber = parseInt(selection, 10);
 
-            // Make sure the user entered a valid number
             if (selectionNumber >= 1 && selectionNumber <= 5) {
-                fetchExplanation(quotesArray[selectionNumber - 1]);
-                generateAndDisplayImage(quotesArray[selectionNumber - 1]);
+                document.getElementById('question').value = '';
+                document.getElementById('response').innerHTML = 'An explanation is being generated for the chosen quote, please wait..';
+                fetchExplanation(quotesArray[selectionNumber - 1])
+                .then(response => response.json())
+                .then(data => {
+                    const explanation = data.answer;
+
+                    document.getElementById('response').innerHTML = '';
+                    document.getElementById('imageResponse').innerHTML = '';
+
+                    // Apply typewriter effect and then display the image
+                    typeWriterEffect(explanation, 'response', 50, () => {
+                        generateAndDisplayImage(quotesArray[selectionNumber - 1]);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('response').innerText = 'An error occurred.';
+                });
             } else {
                 document.getElementById('response').innerText = 'Please enter a valid number (1-5).';
             }
         } else {
-            // if not selecting a quote, get the quotes
-            var aboutText = document.getElementById('question').value;
-            fetch(`http://localhost:8080/quotes?userInput=${encodeURIComponent(aboutText)}`, {
+            var aboutText = document.getElementById('question').value; // Capture the value
+        document.getElementById('question').value = ''; // Clear the textbox immediately
+            document.getElementById('response').innerHTML = 'Five quotes related to your input are being generated based on your answer!';
+            fetch(`https://stoicopenaibackend.azurewebsites.net/quotes?userInput=${encodeURIComponent(aboutText)}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok: ' + response.statusText);
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
                 quotesArray = data.answer.split('\n\n');
                 const formattedQuotes = quotesArray.map((quote, index) => `${index + 1}. ${quote.trim()}`).join('<br><br>');
                 document.getElementById('response').innerHTML = formattedQuotes;
-                
-                // After displaying the quotes, ask for a number
                 document.getElementById('response').innerHTML += '<br><br>Enter the number of the quote you want explained in the box above and press Submit.';
-                
-                // Now switch to selecting a quote
                 isSelectingQuote = true;
+            })
+            .then(data =>{
+                resetAfterExplanation();
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -52,53 +63,81 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fetchExplanation(quote) {
-    // Implement the fetch call to your backend with the selected quote
-    //insert correct endpoint
-    fetch(`http://localhost:8080/explanation?quote=${encodeURIComponent(quote)}`, {
+    return fetch(`https://stoicopenaibackend.azurewebsites.net/explanation?quote=${encodeURIComponent(quote)}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
         }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok: ' + response.statusText);
-        }
-        return response.json();
-    })
-    .then(data => {
-        document.getElementById('response').innerHTML = data.answer;
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        document.getElementById('response').innerText = 'An error occurred while fetching the explanation.';
     });
 }
+
 function generateAndDisplayImage(quote) {
-    fetch(`http://localhost:8080/generate-image`, {
+    return fetch(`https://stoicopenaibackend.azurewebsites.net/generate-image`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ quote: quote })
     })
-    .then(handleResponse)
+    .then(response => response.json())
     .then(data => {
         const imageElement = document.createElement('img');
         imageElement.src = data.answer;
         document.getElementById('imageResponse').appendChild(imageElement);
     })
-    .catch(handleError);
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('response').innerText = 'An error occurred while processing your request.';
+    });
 }
 
-function handleResponse(response) {
-    if (!response.ok) {
-        throw new Error('Network response was not ok: ' + response.statusText);
+function resetButton() {
+    isSelectingQuote = false;
+    quotesArray = [];
+    document.getElementById('question').value = '';
+    document.getElementById('response').innerHTML = 'You have now reset the process! Send in a new request!';
+}
+
+function resetAfterExplanation() {
+    isSelectingQuote = false;
+    quotesArray = [];
+    document.getElementById('question').value = '';
+}
+
+function typeWriterEffect(text, elementId, speed, callback) {
+    let i = 0;
+    const elem = document.getElementById(elementId);
+
+    function typing() {
+        if (i < text.length) {
+            elem.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typing, speed);
+        } else {
+            if (callback) callback();
+        }
     }
-    return response.json();
+
+    typing();
 }
 
-function handleError(error) {
-    console.error('Error:', error);
-    document.getElementById('response').innerText = 'An error occurred while processing your request.';
-}
+document.getElementById('startButton').addEventListener('click', function() {
+    var form = document.getElementById('questionForm');
+
+    if (form.style.display === 'none' || form.style.display === '') {
+        form.style.display = 'block'; // Show the form
+
+        // Calculate the new scroll position
+        var scrollPosition = form.offsetTop + 100; // Additional 100 pixels down
+
+        // Scroll to the new position
+        window.scrollTo({
+            top: scrollPosition,
+            behavior: 'smooth'
+        });
+
+        document.getElementById('question').focus();
+    } else {
+        form.style.display = 'none'; // Hide the form
+    }
+});

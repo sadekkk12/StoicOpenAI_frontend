@@ -4,17 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StoicOpenAI</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Welcome to StoicOpenAI</h1>
-    <form id="questionForm">
-        <label for="question">Your Question:</label><br>
-        <textarea id="question" name="question" rows="4" cols="50"></textarea><br>
-        <input type="submit" value="Submit" id="submitBtn">
+    <header class="intro-header">
+        <h1>Welcome to Stoic AI</h1>
+        <p>Find Wisdom and Clarity in Times of Challenge</p>
+        
+        <section class="intro-content">
+            <h2>Discover the Power of Stoicism</h2>
+            <p>At Stoic AI, we believe in the timeless wisdom of Stoic philosophy to guide us through life's ups and downs. Whether you're grappling with a difficult emotion, facing a challenging situation, or simply seeking a dose of inspiration, our AI-driven guide is here to help.</p>
+
+            <h3>How It Works:</h3>
+            <ol>
+                <li><strong>Share Your Thoughts:</strong> Begin by sharing your current emotion or the situation you're facing. It's a space where you can express yourself freely and confidentially.</li>
+                <li><strong>Receive Tailored Quotes:</strong> Based on your input, you'll receive five carefully selected Stoic quotes. These timeless words have been chosen to resonate with your situation, offering perspective and insight.</li>
+                <li><strong>Choose What Resonates:</strong> Reflect on the quotes and select the one that speaks to you the most.</li>
+                <li><strong>Gain Deeper Understanding:</strong> For the quote you choose, we'll provide an in-depth explanation to help you delve deeper into its wisdom and how it can be applied to your life.</li>
+                <li><strong>Visualize with AI Art:</strong> Accompanying the explanation, you'll receive a unique, AI-generated image that encapsulates the essence of the chosen quote. A visual representation to inspire and comfort.</li>
+            </ol>
+
+           
+            <p>Stoic AI is more than just an app; it's a companion in your journey towards inner peace and resilience. Let's embark on this journey of self-discovery and empowerment together.</p>
+            <p>If you are new to the concept of stoicism and want to learn more about common misconceptions, click <a href="your-link.html" class="text-link">here</a>.</p>
+            <button id="startButton" class="btn btn-primary">Start Your Journey</button>
+            
+
+
+       
+        </section>
+    </header>
+
+    <div id="dynamicContent" style="min-height: 770px; margin: auto; text-align: center;">
+    <div class="container text-center"> 
+        <div id="output-container" class="mb-3" style="width: 80%; margin: auto;">
+            <div id="response" class="mx-auto p-3 border rounded"> <!-- Added Bootstrap classes for padding, border, and rounded corners -->
+                <p>Which negative emotion or experience is affecting you?
+                </p>
+                <p>Write down below and press enter</p>
+                <!-- Response content will go here -->
+            </div>
+            <div id="imageResponse"></div>
+        </div>
+    </div>
+    <form id="questionForm" class="fixed-bottom p-3 shadow text-center">
+        <div class="input-group" style="width: 50%; margin: auto;">
+            <input type="text" id="question" name="question" class="form-control" placeholder="Send a message to StoicAI...">
+            <div class="input-group-append">
+                <button type="submit" id="submitBtn" class="btn">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
     </form>
-    <div id="response"></div>
-    <div id="imageResponse"></div> <!-- The image will be appended here -->
+</div>
     <script src="script.js"></script>
 </body>
 </html>

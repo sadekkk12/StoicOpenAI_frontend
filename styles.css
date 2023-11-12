@@ -1,17 +1,158 @@
 
+
 body {
-    width: 80%;
     margin: auto;
-    text-align: center;
+    text-align: center; /* Center text for all child elements */
+    background-color: #121212; /* Dark background */
+    color: #ffffff; /* Light text for readability */
+    font-family: 'Arial', sans-serif;
 }
 
-textarea {
-    width: 100%;
-    margin-bottom: 10px;
+h1, h2, h3 {
+    font-family: 'Georgia', serif; /* More formal font for headers */
+    color: #E0E0E0; /* Slightly muted text for headers */
+}
+
+
+h1 {
+    padding-top: 50px;
+}
+
+p, ol {
+    line-height: 1.6; /* Improve line spacing for readability */
+    color: #E0E0E0; /* Slightly muted text for readability */
+}
+
+#question {
+    resize: none;
+    background-color: #1e1e1e; /* Slightly lighter than body background */
+    color: #ffffff;
 }
 
 #response {
-    margin-top: 20px;
-    border: 1px solid #ddd;
+    margin-top: 60px;
+    padding: 20px;
+    background: #1e1e1e; /* Dark background for response area */
+    border: 1px solid #333333; /* Dark border */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    font-size: 1rem;
+    color: #ffffff; 
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+}
+
+#imageResponse img {
+    width: 80%;
+    height: auto;
+    border: 2px solid #4a707a; 
+    padding: 5px;
+    background: #1e1e1e; 
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+#questionForm {
+    display: none; /* Hide the form initially */
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #1e1e1e; /* Dark background */
     padding: 10px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+}
+
+#questionForm .form-control {
+    border-radius: 20px;
+    border: 1px solid #4a707a; /* Deep blue-green border */
+    background-color: #1e1e1e; /* Dark background */
+    color: #ffffff;
+}
+
+.input-group-append button {
+    border-radius: 0 20px 20px 0; 
+    border: 1px solid #4a707a; 
+    background-color: #4a707a; 
+    color: #ffffff;
+}
+
+.intro-header {
+    text-align: center;
+    padding: 20px;
+    background-color: #1e1e1e; /* Dark background */
+    padding-bottom: 80px;
+}
+
+.intro-header h1, .intro-header h2 {
+    color: #E0E0E0; 
+}
+
+.intro-header p {
+    color: #B0B0B0; 
+}
+
+.intro-content {
+    padding: 20px;
+    background-color: #1e1e1e; /* Dark background */
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    padding-bottom: 30px;
+}
+
+.intro-content h3 {
+    margin-top: 20px;
+    color: #E0E0E0; /* Slightly muted text */
+}
+
+.intro-content ol {
+    text-align: left;
+    margin: 20px auto;
+    max-width: 800px;
+    padding-left: 20px; /* Add padding for ordered list */
+    color: #E0E0E0; /* Slightly muted text */
+}
+
+.btn-primary {
+    background-color: #2a5565; 
+    border-color: #2a5565;
+    color: #ffffff; 
+    transition: background-color 0.3s, border-color 0.3s; 
+    padding: 10px 20px; 
+    font-size: 1rem; 
+    border-radius: 5px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); 
+}
+
+.btn-primary:hover {
+    background-color: #1e3f4a; /* Slightly darker shade for hover */
+    border-color: #1e3f4a;
+}
+
+/* Optionally, adjust the focus and active states as well */
+.btn-primary:focus, .btn-primary:active {
+    background-color: #1e3f4a;
+    border-color: #1e3f4a;
+}
+
+
+
+a {
+    color: #4a707a; 
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #a8b4a5; 
+    text-decoration: none;
+}
+
+.quote-text {
+    font-style: italic;
+    background-color: #1e1e1e; /* Dark background */
+    padding: 10px;
+    border-left: 4px solid #4a707a; /* Deep blue-green border */
+    color: #ffffff; /* Light text for readability */
 }
