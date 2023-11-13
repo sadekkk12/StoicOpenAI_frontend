@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var quotesArray = [];
     document.getElementById('question').value = '';
 
+
     document.getElementById('submitBtn').addEventListener('click', function(event) {
         event.preventDefault();
 
@@ -13,6 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (selectionNumber >= 1 && selectionNumber <= 5) {
                 document.getElementById('question').value = '';
                 document.getElementById('response').innerHTML = 'An explanation is being generated for the chosen quote, please wait..';
+
+
                 fetchExplanation(quotesArray[selectionNumber - 1])
                 .then(response => response.json())
                 .then(data => {
@@ -20,6 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     document.getElementById('response').innerHTML = '';
                     document.getElementById('imageResponse').innerHTML = '';
+                    const responseDiv =document.getElementById('response');
+                    responseDiv.style.textAlign = 'left';
 
                     // Apply typewriter effect and then display the image
                     typeWriterEffect(explanation, 'response', 50, () => {
