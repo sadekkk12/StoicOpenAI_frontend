@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('question').value = ''; // Clear the textbox immediately
             document.getElementById('response').innerHTML = 'Five quotes related to your input are being generated based on your answer!';
             fetch(`https://stoicopenaibackend.azurewebsites.net/quotes?userInput=${encodeURIComponent(aboutText)}`, {
+            
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -69,6 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function fetchExplanation(quote) {
     return fetch(`https://stoicopenaibackend.azurewebsites.net/explanation?quote=${encodeURIComponent(quote)}`, {
+    
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -78,6 +80,7 @@ function fetchExplanation(quote) {
 
 function generateAndDisplayImage(quote) {
     return fetch(`https://stoicopenaibackend.azurewebsites.net/generate-image`, {
+
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

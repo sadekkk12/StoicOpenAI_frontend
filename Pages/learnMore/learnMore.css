@@ -1,0 +1,31 @@
+
+    body {
+            font-family: 'Arial', sans-serif;
+            color: #ffffff;
+            background-color: #1e1e1e;
+            margin: 0;
+            padding: 20px;
+     }
+        h1, h2, h3 {
+            color: #E0E0E0;
+            text-align: center;
+        }
+        p {
+            line-height: 1.6;
+        }
+        a {
+            color: #4a707a;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #a8b4a5;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .section {
+            margin-bottom: 20px;
+            text-align: center;
+            
+        }

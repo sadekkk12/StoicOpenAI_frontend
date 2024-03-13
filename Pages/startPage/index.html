@@ -28,7 +28,7 @@
 
            
             <p>Stoic AI is more than just an app; it's a companion in your journey towards inner peace and resilience. Let's embark on this journey of self-discovery and empowerment together.</p>
-            <p>If you are new to the concept of stoicism and want to learn more about common misconceptions, click <a href="your-link.html" class="text-link">here</a>.</p>
+            <p>If you are new to the concept of stoicism and want to learn more about common misconceptions, click <a href="/Pages/learnMore/learnMore.html" class="text-link">here</a>.</p>
             <button id="startButton" class="btn btn-primary">Start Your Journey</button>
             
 
@@ -41,25 +41,26 @@
     <div class="container text-center"> 
         <div id="output-container" class="mb-3" style="width: 80%; margin: auto;">
             <div id="response" class="mx-auto p-3 border rounded"> <!-- Added Bootstrap classes for padding, border, and rounded corners -->
-                <p>Which negative emotion or experience is affecting you?
+                <p>Which negative emotion or experience is affecting you? 
                 </p>
                 <p>Write down below and press enter</p>
+                
+                
                 <!-- Response content will go here -->
             </div>
             <div id="imageResponse"></div>
+             <!-- Response IMAGE will go here -->
         </div>
     </div>
     <form id="questionForm" class="fixed-bottom p-3 shadow text-center">
         <div class="input-group" style="width: 50%; margin: auto;">
             <input type="text" id="question" name="question" class="form-control" placeholder="Send a message to StoicAI...">
-            <div class="input-group-append">
                 <button type="submit" id="submitBtn" class="btn">
-                    <i class="fas fa-arrow-right"></i>
-                </button>
             </div>
         </div>
     </form>
+
 </div>
-    <script src="script.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
