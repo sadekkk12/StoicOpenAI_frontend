@@ -80,7 +80,7 @@ p, ol {
     text-align: center;
     padding: 20px;
     background-color: #1e1e1e; /* Dark background */
-    padding-bottom: 80px;
+    padding-bottom: 150px;
 }
 
 .intro-header h1, .intro-header h2 {
@@ -92,12 +92,12 @@ p, ol {
 }
 
 .intro-content {
-    padding: 20px;
+    padding: 30px;
     background-color: #1e1e1e; /* Dark background */
     margin: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    padding-bottom: 30px;
+    padding-bottom: 50px;
 }
 
 .intro-content h3 {
