@@ -16,20 +16,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('response').innerHTML = getSpinnerWithMessage('An explanation is being generated, please wait..');
 
 
-                fetchExplanation(quotesArray[selectionNumber - 1])
-                .then(response => response.json())
-                .then(data => {
-                    const explanation = data.answer;
-
-                    document.getElementById('response').innerHTML = '';
-                    document.getElementById('imageResponse').innerHTML = '';
-                    const responseDiv =document.getElementById('response');
-                    responseDiv.style.textAlign = 'left';
-
-                    // Apply typewriter effect and then display the image
-                    typeWriterEffect(explanation, 'response', 50, () => {
-                        generateAndDisplayImage(quotesArray[selectionNumber - 1]);
-                    });
+                Promise.all([
+                    fetchExplanation(quotesArray[selectionNumber - 1]).then(response => response.json()),
+                    generateAndDisplayImage(quotesArray[selectionNumber - 1])
+                ])
+                .then(([explanationData]) => {
+                    // Explanation and image are both ready, update DOM to display them.
+                    document.getElementById('response').innerHTML = explanationData.answer;
+                    // The image has already been added to the DOM by generateAndDisplayImage.
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -89,6 +83,7 @@ function generateAndDisplayImage(quote) {
     })
     .then(response => response.json())
     .then(data => {
+        return new Promise(resolve => {
         const imageElement = document.createElement('img');
         imageElement.src = data.answer;
         document.getElementById('imageResponse').appendChild(imageElement);
@@ -96,6 +91,7 @@ function generateAndDisplayImage(quote) {
     .catch(error => {
         console.error('Error:', error);
         document.getElementById('response').innerText = 'An error occurred while processing your request.';
+    });
     });
 }
 
