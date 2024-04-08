@@ -74,7 +74,6 @@ function fetchExplanation(quote) {
 
 function generateAndDisplayImage(quote) {
     return fetch(`https://stoicopenaibackend.azurewebsites.net/generate-image`, {
-
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -83,17 +82,17 @@ function generateAndDisplayImage(quote) {
     })
     .then(response => response.json())
     .then(data => {
-        return new Promise(resolve => {
-        const imageElement = document.createElement('img');
-        imageElement.src = data.answer;
-        document.getElementById('imageResponse').appendChild(imageElement);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        document.getElementById('response').innerText = 'An error occurred while processing your request.';
-    });
+        return new Promise((resolve, reject) => { // Ensure the promise handles both resolve and reject scenarios
+            const imageElement = document.createElement('img');
+            imageElement.onload = resolve; // Resolve when the image has finished loading
+            imageElement.onerror = reject; // Reject the promise if there's an error loading the image
+            imageElement.src = data.answer;
+            document.getElementById('imageResponse').innerHTML = ''; // Clear previous images
+            document.getElementById('imageResponse').appendChild(imageElement);
+        });
     });
 }
+
 
 function resetButton() {
     isSelectingQuote = false;
@@ -108,22 +107,6 @@ function resetAfterExplanation() {
     document.getElementById('question').value = '';
 }
 
-function typeWriterEffect(text, elementId, speed, callback) {
-    let i = 0;
-    const elem = document.getElementById(elementId);
-
-    function typing() {
-        if (i < text.length) {
-            elem.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typing, speed);
-        } else {
-            if (callback) callback();
-        }
-    }
-
-    typing();
-}
 
 document.getElementById('startButton').addEventListener('click', function() {
     var form = document.getElementById('questionForm');
