@@ -152,9 +152,9 @@ document.getElementById('startButton').addEventListener('click', function() {
 
 function getSpinnerWithMessage(message) {
     return `
-        <div class="mx-auto p-3 border rounded d-flex align-items-center">
+        <div class="mx-auto p-3 d-flex align-items-center">
             <p class="mb-0" style="display: inline-block;">${message}</p>
-            <div class="spinner-border text-primary ml-2" role="status" style="width: 1.5rem; height: 1.5rem;">
+            <div class="spinner-grow text-secondary ml-2" role="status" style="width: 1.5rem; height: 1.5rem;">
                 <span class="sr-only">Loading...</span>
             </div>
         </div>
