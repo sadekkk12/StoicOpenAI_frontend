@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (selectionNumber >= 1 && selectionNumber <= 5) {
                 document.getElementById('question').value = '';
-                document.getElementById('response').innerHTML = 'An explanation is being generated for the chosen quote, please wait..';
+                document.getElementById('response').innerHTML = getSpinnerWithMessage('An explanation is being generated, please wait..');
 
 
                 fetchExplanation(quotesArray[selectionNumber - 1])
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             var aboutText = document.getElementById('question').value; // Capture the value
         document.getElementById('question').value = ''; // Clear the textbox immediately
-            document.getElementById('response').innerHTML = 'Five quotes related to your input are being generated based on your answer!';
+            document.getElementById('response').innerHTML = getSpinnerWithMessage('Five quotes are being generated, please wait..');
             fetch(`https://stoicopenaibackend.azurewebsites.net/quotes?userInput=${encodeURIComponent(aboutText)}`, {
             
                 method: 'GET',
@@ -149,3 +149,14 @@ document.getElementById('startButton').addEventListener('click', function() {
         form.style.display = 'none'; // Hide the form
     }
 });
+
+function getSpinnerWithMessage(message) {
+    return `
+        <div class="mx-auto p-3 border rounded d-flex align-items-center">
+            <p class="mb-0" style="display: inline-block;">${message}</p>
+            <div class="spinner-border text-primary ml-2" role="status" style="width: 1.5rem; height: 1.5rem;">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    `;
+}
